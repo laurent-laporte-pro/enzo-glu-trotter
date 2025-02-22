@@ -1,0 +1,87 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+enum ScreenTheme {
+    + LIGHT
+    + DARK
+    + SYSTEM
+}
+
+enum UserLanguage {
+    + EN
+    + FR
+}
+
+interface Geolocation {
+  +double latitude
+  +double longitude
+  +double? altitude
+  +String? address
+  +DateTime timestamp
+}
+
+class User {
+    + id: UUID
+    + username: str
+    + email: str
+    - password: str
+    + hashed_password: str
+    + first_name: str
+    + last_name: str
+    + date_joined: datetime
+    + last_login: datetime
+    + screen_theme: ScreenTheme = ScreenTheme.SYSTEM
+    + language: UserLanguage = UserLanguage.FR
+    + geolocation?: Geolocation
+}
+
+class Shop {
+    + id: UUID
+    + name: str
+    + geolocation: Geolocation
+}
+
+class Recipe {
+    + id: UUID
+    + title: str
+    + image: str
+    + portions: int
+    + ingredients: List[str]
+    + instructions: List[str]
+    + notes: str
+    + preparation_time: int
+    + cooking_time: int
+    + calories: int
+    + glucose: int
+    + fat: int
+    + protein: int
+    + fiber: int
+    + cholesterol: int
+    + sodium: int
+    + allergens: List[str]
+}
+
+class FavoriteShop {
+    + id: UUID
+    + user_id: UUID
+    + shop_id: UUID
+    + stars: int
+}
+
+class FavoriteRecipe {
+    + id: UUID
+    + user_id: UUID
+    + recipe_id: UUID
+    + stars: int
+}
+
+' A user can have multiple favorite shops (many-to-many)
+User "1" *-- "0..*" FavoriteShop: has favorite shops
+FavoriteShop "0..*" --> "1" Shop
+
+' A user can have multiple favorite recipes (many-to-many)
+User "1" *-- "0..*" FavoriteRecipe: has favorite recipes
+FavoriteRecipe "0..*" --> "1" Recipe
+
+
+@enduml

@@ -1,0 +1,22 @@
+[project]
+name = "glu-trotter"
+version = "0.1.0"
+description = "A smart food companion app that helps users find and save their favorite restaurants and grocery stores, manage a personalized recipe list, scan product barcodes to check ingredients and allergens, and explore new cooking ideas."
+readme = "README.md"
+authors = [
+    { name = "Laurent LAPORTE", email = "laurent.laporte.pro@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+glu-trotter = "glu_trotter:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+docs = [
+    "mkdocs>=1.6.1",
+]
